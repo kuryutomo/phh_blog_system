@@ -33,6 +33,7 @@ CREATE TABLE `entry` (
        `title` VARCHAR(255) NOT NULL,
        `tag_id` INT NOT NULL,
        `text` TEXT NOT NULL,
+       `image` BLOB,
        `created_at` timestamp not null default current_timestamp,
        `updated_at` timestamp not null default current_timestamp on update current_timestamp       
 );
