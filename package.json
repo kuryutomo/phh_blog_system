@@ -1,0 +1,23 @@
+{
+  "name": "phh_blog_system",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/satoyuichi/phh_blog_system.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/satoyuichi/phh_blog_system/issues"
+  },
+  "homepage": "https://github.com/satoyuichi/phh_blog_system#readme",
+  "dependencies": {
+    "promise-mysql": "^3.0.2",
+    "pug": "^2.0.0-rc.3"
+  }
+}
