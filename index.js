@@ -22,6 +22,9 @@ const server = http.createServer ((req, res) => {
     case '/profile':
       showProfilePage (req, res);
       break;
+    case '/entry/post':
+      showPostPage (req, res);
+      break;
     default:
       break;
     }
@@ -46,7 +49,7 @@ server.listen (port, () => {
 function showTopPage (req, res) {
   let connection;
   let entries;
-  let tags;
+  let tags = []
 
   mysql.createConnection({
     host: 'localhost',
@@ -58,9 +61,14 @@ function showTopPage (req, res) {
     return connection.query ("SELECT * FROM entry");
   }).then ((rows) => {
     entries = rows;
-    return connection.query ('SELECT name FROM tag');
+    return connection.query ('SELECT * FROM tag');
   }).then ((rows) => {
-    tags = rows;
+    for (let row of rows) {
+      tags.push ({
+        tag: row,
+        query: querystring.stringify (row),
+      });
+    }
     res.write(pug.renderFile('./top.pug', {
       entries: entries,
       tags: tags,
@@ -91,3 +99,11 @@ function showProfilePage  (req, res) {
     res.end ();
   });
 }
+
+function showPostPage (req, res) {
+  res.write(pug.renderFile('./post.pug', {
+  }));
+  res.end ();
+}
+
+
