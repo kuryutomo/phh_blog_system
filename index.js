@@ -2,10 +2,11 @@
 const http = require ('http');
 const pug = require ('pug');
 const mysql = require ('promise-mysql');
+const querystring = require('querystring');
 
 const DB_NAME = 'phh_blog_system';
-const DB_USER = process.env['PHH_DB_USER'] || 'root';
-const DB_PASSWD = process.env['PHH_DB_PASSWD'] || '';
+const DB_USER = process.env['PHH_DB_USER'] || 'y_sato';
+const DB_PASSWD = process.env['PHH_DB_PASSWD'] || '!Qaz2wsx';
 
 const server = http.createServer ((req, res) => {
   res.writeHead (200, {
@@ -15,7 +16,7 @@ const server = http.createServer ((req, res) => {
   switch (req.method) {
   case 'GET':
     if (req.url === '/') {
-      getTopPage (req, res);
+      showTopPage (req, res);
     }
     break;
   case 'POST':
@@ -35,7 +36,31 @@ server.listen (port, () => {
   console.info ('[' + new Date() + '] Listening on ' + port);
 });
 
-function getTopPage (req, res) {
-  res.write(pug.renderFile('./top.pug', {}));
-  res.end ();
+function showTopPage (req, res) {
+  let connection;
+  let entries;
+  let tags;
+
+  mysql.createConnection({
+    host: 'localhost',
+    user: DB_USER,
+    password: DB_PASSWD,
+    database: DB_NAME
+  }).then ((conn) => {
+    connection = conn;
+    return connection.query ("SELECT * FROM entry");
+  }).then ((rows) => {
+    entries = rows;
+    return connection.query ('SELECT name FROM tag');
+  }).then ((rows) => {
+    tags = rows;
+    res.write(pug.renderFile('./top.pug', {
+      entries: entries,
+      tags: tags,
+    }));
+    res.end ();
+    connection.end ();
+  }).catch ((error) => {
+    console.log (error);
+  });
 }

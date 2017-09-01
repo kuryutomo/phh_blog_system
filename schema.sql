@@ -37,6 +37,8 @@ CREATE TABLE `entry` (
        `created_at` timestamp not null default current_timestamp,
        `updated_at` timestamp not null default current_timestamp on update current_timestamp       
 );
+INSERT INTO `entry` (`title`, `tag_id`, `text`) VALUES ("最初の記事", 1, "ドキドキするー");
+INSERT INTO `entry` (`title`, `tag_id`, `text`) VALUES ("二番目の記事", 1, "ワクワクするー");
 COMMIT;
 
 DROP TABLE IF EXISTS `tag`;
