@@ -69,7 +69,7 @@ function showTopPage (req, res) {
         query: querystring.stringify (row),
       });
     }
-    res.write(pug.renderFile('./top.pug', {
+    res.write(pug.renderFile('./includes/top.pug', {
       entries: entries,
       tags: tags,
     }));
@@ -92,7 +92,7 @@ function showProfilePage  (req, res) {
     connection = conn;
     return connection.query ('SELECT name, nickname, type, birthday, image, updated_at FROM profile AS p INNER JOIN blood_type AS b ON p.blood_type_id=b.id');
   }).then ((rows) => {
-    res.write(pug.renderFile('./profile.pug', {
+    res.write(pug.renderFile('./includes/profile.pug', {
       profile: rows[0],
     }));
     connection.end ();
@@ -101,7 +101,7 @@ function showProfilePage  (req, res) {
 }
 
 function showPostPage (req, res) {
-  res.write(pug.renderFile('./post.pug', {
+  res.write(pug.renderFile('./includes/post.pug', {
   }));
   res.end ();
 }

@@ -1,0 +1,53 @@
+//- トップページ用テンプレート
+doctype html
+html(lang="ja")
+  head
+    meta(charset="UTF-8")
+    link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css", integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M", crossorigin="anonymous")
+    style
+      include css/style.css
+    title トップページ
+  body
+    //- include に関しては次のドキュメントを参照のこと
+    //- https://pugjs.org/language/includes.html
+    include header.pug
+
+    div(class="container")
+      div(class="row")
+        div(class="col-md-2")
+          h2 タグ
+          nav
+            ul
+              each val in tags
+                li
+                  //- ハリボテ
+                  a(href='/?' + val.query) #{val.tag.name}
+        div(class="col-md-10")
+          article
+            each entry in entries
+              h2= entry.title
+              div 更新日時：#{entry.updated_at}
+              div= entry.text
+              //- ハリボテ
+              div(class="btn-group" role="group")
+                form(method="post" action="/entry/edit")
+                  input(class="btn btn-warning btn-sm" type="submit" value="編集")
+                form(method="post" action="/entry/delete")
+                  input(class="btn btn-danger btn-sm" type="submit" value="削除")
+
+          // ページネーション
+          //- ハリボテ
+          nav(aria-label="...")
+            ul(class="pagination")
+              li(class="page-item disabled")
+                a(class="page-link" href="#" tabindex="-1") Previous
+              li(class="page-item active")
+                a(class="page-link" href="#") 1
+                span(class="sr-only") (current)
+              li(class="page-item")
+                a(class="page-link" href="#") 2
+              li(class="page-item")
+                a(class="page-link" href="#") 3
+              li(class="page-item")
+                a(class="page-link" href="#") Next
+    footer

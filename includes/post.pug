@@ -1,0 +1,15 @@
+//- 記事投稿用のテンプレート
+doctype html
+html(lang="ja")
+  head
+    meta(charset="UTF-8")
+    link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css", integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M", crossorigin="anonymous")
+    style
+      include css/style.css
+    title 記事投稿
+  body
+    //- include に関しては次のドキュメントを参照のこと
+    //- https://pugjs.org/language/includes.html
+    include header.pug
+    
+    h1 投稿
