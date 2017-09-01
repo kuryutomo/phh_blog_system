@@ -15,8 +15,15 @@ const server = http.createServer ((req, res) => {
 
   switch (req.method) {
   case 'GET':
-    if (req.url === '/') {
+    switch (req.url) {
+    case '/':
       showTopPage (req, res);
+      break;
+    case '/profile':
+      showProfilePage (req, res);
+      break;
+    default:
+      break;
     }
     break;
   case 'POST':
@@ -58,9 +65,29 @@ function showTopPage (req, res) {
       entries: entries,
       tags: tags,
     }));
-    res.end ();
     connection.end ();
+    res.end ();
   }).catch ((error) => {
     console.log (error);
+  });
+}
+
+function showProfilePage  (req, res) {
+  let connection;
+
+  mysql.createConnection({
+    host: 'localhost',
+    user: DB_USER,
+    password: DB_PASSWD,
+    database: DB_NAME
+  }).then ((conn) => {
+    connection = conn;
+    return connection.query ('SELECT name, nickname, type, birthday, image, updated_at FROM profile AS p INNER JOIN blood_type AS b ON p.blood_type_id=b.id');
+  }).then ((rows) => {
+    res.write(pug.renderFile('./profile.pug', {
+      profile: rows[0],
+    }));
+    connection.end ();
+    res.end ();
   });
 }

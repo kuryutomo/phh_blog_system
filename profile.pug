@@ -6,3 +6,20 @@ html(lang="ja")
     link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css", integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M", crossorigin="anonymous")
     title プロフィール
   body
+    include header.pug
+    h1 プロフィール
+    form(action="/profile/update", method="post")
+      div(class="container")
+        div(class="row")
+          div(class="col") 名前
+          input(class="col" name="name" type="text" value=profile.name)
+        div(class="row")
+          div(class="col") ニックネーム
+          input(class="col" name="nickname" type="text" value=profile.nickname)
+        div(class="row")
+          div(class="col") 血液型
+          div(class="col") #{profile.type}
+        div(class="row")
+          div(class="col") 誕生日
+          input(class="col" name="birthday" type="date" value=profile.birthday)
+      input(class="btn btn-warning" type="submit", value="変更")

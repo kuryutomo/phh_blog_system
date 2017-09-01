@@ -14,6 +14,7 @@ CREATE TABLE `profile` (
        `image` BLOB,
        `updated_at` timestamp not null default current_timestamp on update current_timestamp       
 );
+INSERT INTO `profile` (`name`, `nickname`, `blood_type_id`, `birthday`) VALUES ("両津勘吉", "両さん", 1, '1952-3-3');
 COMMIT;
 
 DROP TABLE IF EXISTS `blood_type`;
