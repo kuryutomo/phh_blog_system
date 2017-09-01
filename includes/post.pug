@@ -11,5 +11,16 @@ html(lang="ja")
     //- include に関しては次のドキュメントを参照のこと
     //- https://pugjs.org/language/includes.html
     include header.pug
-    
-    h1 投稿
+
+    div(class="container")
+      h1 投稿
+      form(class="form-group" action="/entry/post/add", method="post")
+        div(class="row")
+          div(class="col")
+            input(class="form-control" type="text" name="title" placeholder="タイトル")
+        div(class="row")
+          div(class="col")
+            textarea(class="form-control" name="entry" placeholder="記事" rows="8")
+        div(class="row")
+          div(class="col")
+            input(class="btn btn-primary" type="submit" value="投稿")

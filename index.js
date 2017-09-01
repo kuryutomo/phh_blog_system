@@ -5,8 +5,8 @@ const mysql = require ('promise-mysql');
 const querystring = require('querystring');
 
 const DB_NAME = 'phh_blog_system';
-const DB_USER = process.env['PHH_DB_USER'] || 'y_sato';
-const DB_PASSWD = process.env['PHH_DB_PASSWD'] || '!Qaz2wsx';
+const DB_USER = process.env['PHH_DB_USER'] || 'root';
+const DB_PASSWD = process.env['PHH_DB_PASSWD'] || '';
 
 const server = http.createServer ((req, res) => {
   res.writeHead (200, {
@@ -30,7 +30,13 @@ const server = http.createServer ((req, res) => {
     }
     break;
   case 'POST':
-    res.end ();
+    switch (req.url) {
+    case '/entry/post/add':
+      postNewEntry (req, res);
+      break;
+    default:
+      break;
+    }
     break;
   default:
     break;
@@ -41,11 +47,13 @@ const server = http.createServer ((req, res) => {
   console.error ('[' + new Date() + '] Client Error', e);
 });
 
+// HTTP サーバーを立ち上げる
 const port = 8000;
 server.listen (port, () => {
   console.info ('[' + new Date() + '] Listening on ' + port);
 });
 
+// トップページを表示する
 function showTopPage (req, res) {
   let connection;
   let entries;
@@ -69,10 +77,12 @@ function showTopPage (req, res) {
         query: querystring.stringify (row),
       });
     }
+
     res.write(pug.renderFile('./includes/top.pug', {
       entries: entries,
       tags: tags,
     }));
+
     connection.end ();
     res.end ();
   }).catch ((error) => {
@@ -80,6 +90,7 @@ function showTopPage (req, res) {
   });
 }
 
+// プロフィールページを表示する
 function showProfilePage  (req, res) {
   let connection;
 
@@ -90,20 +101,27 @@ function showProfilePage  (req, res) {
     database: DB_NAME
   }).then ((conn) => {
     connection = conn;
-    return connection.query ('SELECT name, nickname, type, birthday, image, updated_at FROM profile AS p INNER JOIN blood_type AS b ON p.blood_type_id=b.id');
+    return connection.query ('SELECT name, nickname, type, birthday, image, updated_at FROM user AS p INNER JOIN blood_type AS b ON p.blood_type_id=b.id');
   }).then ((rows) => {
     res.write(pug.renderFile('./includes/profile.pug', {
       profile: rows[0],
     }));
+
     connection.end ();
     res.end ();
   });
 }
 
+// 投稿ページを表示する
 function showPostPage (req, res) {
   res.write(pug.renderFile('./includes/post.pug', {
   }));
   res.end ();
 }
 
+// 新規投稿をする
+function postNewEntry (req, res) {
 
+  // トップページに戻る
+  showTopPage (req, res);
+}

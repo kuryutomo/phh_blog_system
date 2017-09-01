@@ -6,8 +6,8 @@ USE phh_blog_system;
 SET AUTOCOMMIT=0;
 
 -- プロフィールテーブルの削除と作成をする
-DROP TABLE IF EXISTS `profile`;
-CREATE TABLE `profile` (
+DROP TABLE IF EXISTS `user`;
+CREATE TABLE `user` (
        `id` INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
        `name` VARCHAR(32),
        `nickname` VARCHAR(32),
@@ -17,7 +17,7 @@ CREATE TABLE `profile` (
        `updated_at` timestamp not null default current_timestamp on update current_timestamp       
 );
 -- テストデータを挿入する
-INSERT INTO `profile` (`name`, `nickname`, `blood_type_id`, `birthday`) VALUES ("両津勘吉", "両さん", 1, '1952-3-3');
+INSERT INTO `user` (`name`, `nickname`, `blood_type_id`, `birthday`) VALUES ("両津勘吉", "両さん", 1, '1952-3-3');
 COMMIT;
 
 -- 血液型テーブルの削除と作成をする
@@ -37,6 +37,7 @@ COMMIT;
 DROP TABLE IF EXISTS `entry`;
 CREATE TABLE `entry` (
        `id` INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+       `user_id` INT NOT NULL,
        `title` VARCHAR(255) NOT NULL,
        `tag_id` INT NOT NULL,
        `text` TEXT NOT NULL,
@@ -45,8 +46,8 @@ CREATE TABLE `entry` (
        `updated_at` timestamp not null default current_timestamp on update current_timestamp       
 );
 -- テストデータを挿入する
-INSERT INTO `entry` (`title`, `tag_id`, `text`) VALUES ("最初の記事", 1, "ドキドキするー");
-INSERT INTO `entry` (`title`, `tag_id`, `text`) VALUES ("二番目の記事", 1, "ワクワクするー");
+INSERT INTO `entry` (`user_id`, `title`, `tag_id`, `text`) VALUES (1, "最初の記事", 1, "ドキドキするー");
+INSERT INTO `entry` (`user_id`, `title`, `tag_id`, `text`) VALUES (1, "二番目の記事", 1, "ワクワクするー");
 COMMIT;
 
 -- タグテーブルの削除と作成をする

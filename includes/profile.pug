@@ -12,20 +12,22 @@ html(lang="ja")
     //- https://pugjs.org/language/includes.html
     include header.pug
     
-    h1 プロフィール
-    form(action="/profile/update", method="post")
-      div(class="container")
+    div(class="container")
+      h1 プロフィール
+      form(action="/profile/update", method="post")
         div(class="row")
           div(class="col") 名前
-          input(class="col" name="name" type="text" value=profile.name)
+          input(class="col form-control" name="name" type="text" value=profile.name)
         div(class="row")
           div(class="col") ニックネーム
-          input(class="col" name="nickname" type="text" value=profile.nickname)
+          input(class="col form-control" name="nickname" type="text" value=profile.nickname)
         div(class="row")
           div(class="col") 血液型
-          div(class="col") #{profile.type}
+          div(class="col form-control") #{profile.type}
         div(class="row")
           div(class="col") 誕生日
-          input(class="col" name="birthday" type="date" value=profile.birthday)
-      //- ハリボテ
-      input(class="btn btn-warning" type="submit", value="変更")
+          input(class="col form-control" name="birthday" type="date" value=profile.birthday)
+        div(class="row")
+          div(class="col")
+            //- ハリボテ
+            input(class="btn btn-warning" type="submit", value="変更")
