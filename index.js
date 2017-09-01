@@ -26,6 +26,7 @@ const server = http.createServer ((req, res) => {
       showPostPage (req, res);
       break;
     default:
+      res.end ();
       break;
     }
     break;
@@ -35,10 +36,12 @@ const server = http.createServer ((req, res) => {
       postNewEntry (req, res);
       break;
     default:
+      res.end ();
       break;
     }
     break;
   default:
+    res.end ();
     break;
   }
 }).on('error', (e) => {
@@ -109,19 +112,37 @@ function showProfilePage  (req, res) {
 
     connection.end ();
     res.end ();
-  });
+  }).catch ((error) => {
+    console.log (error);
+  });;
 }
 
 // 投稿ページを表示する
 function showPostPage (req, res) {
-  res.write(pug.renderFile('./includes/post.pug', {
-  }));
-  res.end ();
+  let connection;
+  
+  mysql.createConnection({
+    host: 'localhost',
+    user: DB_USER,
+    password: DB_PASSWD,
+    database: DB_NAME
+  }).then ((conn) => {
+    connection = conn;
+    return connection.query ('SELECT * FROM tag');
+  }).then ((rows) => {
+    res.write(pug.renderFile('./includes/post.pug',
+                             {
+                               tags: rows,
+                             }));
+    connection.end ();
+    res.end ();
+  }).catch ((error) => {
+    console.log (error);
+  });
 }
 
 // 新規投稿をする
 function postNewEntry (req, res) {
-
   // トップページに戻る
   showTopPage (req, res);
 }

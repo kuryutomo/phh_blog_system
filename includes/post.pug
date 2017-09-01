@@ -18,6 +18,10 @@ html(lang="ja")
         div(class="row")
           div(class="col")
             input(class="form-control" type="text" name="title" placeholder="タイトル")
+          div(class="col")
+            select(class="form-control")
+              each val in tags
+                option(value=val.id) #{val.name}
         div(class="row")
           div(class="col")
             textarea(class="form-control" name="entry" placeholder="記事" rows="8")
