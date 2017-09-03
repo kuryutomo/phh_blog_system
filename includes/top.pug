@@ -31,6 +31,7 @@ html(lang="ja")
             article
               each entry in entries
                 h2= entry.title
+                div 作成日時：#{entry.created_at}
                 div 更新日時：#{entry.updated_at}
                 div= entry.text
                 div(class="btn-group" role="group")

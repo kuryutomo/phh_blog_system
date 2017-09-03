@@ -104,7 +104,7 @@ function showProfilePage  (req, res) {
     database: DB_NAME
   }).then ((conn) => {
     connection = conn;
-    return connection.query ('SELECT name, nickname, type, birthday, image, updated_at FROM user AS p INNER JOIN blood_type AS b ON p.blood_type_id=b.id');
+    return connection.query ('SELECT name, nickname, type, birthday, updated_at FROM user AS p INNER JOIN blood_type AS b ON p.blood_type_id=b.id');
   }).then ((rows) => {
     res.write(pug.renderFile('./includes/profile.pug', {
       profile: rows[0],
