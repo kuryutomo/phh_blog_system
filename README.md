@@ -2,7 +2,7 @@
 1. GitHub で Fork する
 1. `$ git clone クローンする URL ` とする
 1. `$ cd クローンしたディレクトリ名`
-1. `$ npm init` として初期化する
+1. `$ npm install` とする
 1. `$ mysql.server start` として MySQL サーバーを立ち上げる
 1. `$ mysql -uroot -p < schema.sql` として データベースを初期化する 
 1. `$ node index.js`
@@ -31,3 +31,4 @@
 + プロフィール画像に対応する
 + 記事一覧を更新日で並べ替える
 + 一度に表示できる記事の数を選択できるようにする
++ 管理者画面を作成する
