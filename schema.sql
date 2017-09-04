@@ -5,7 +5,7 @@ CREATE DATABASE phh_blog_system;
 USE phh_blog_system;
 SET AUTOCOMMIT=0;
 
--- プロフィールテーブルの削除と作成をする
+-- ユーザーテーブルの削除と作成をする
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
        `id` INT NOT NULL PRIMARY KEY AUTO_INCREMENT, -- 主キー
