@@ -36,16 +36,16 @@ COMMIT;
 DROP TABLE IF EXISTS `entry`;
 CREATE TABLE `entry` (
        `id` INT NOT NULL PRIMARY KEY AUTO_INCREMENT, -- 主キー
-       `user_id` INT NOT NULL,			     -- 投稿したユーザー ID
+       			     -- 投稿したユーザー ID
        `title` VARCHAR(255) NOT NULL,		     -- 記事のタイトル
-       `tag_id` INT NOT NULL,			     -- タグ ID
-       `text` TEXT NOT NULL,			     -- 記事の内容
+       `tag` INT NOT NULL,			     -- タグ ID
+       `entry` TEXT NOT NULL,			     -- 記事の内容
        `created_at` timestamp not null default current_timestamp, -- 記事の作成日
        `updated_at` timestamp not null default current_timestamp on update current_timestamp -- 記事の更新日
 );
 -- テストデータを挿入する
-INSERT INTO `entry` (`user_id`, `title`, `tag_id`, `text`) VALUES (1, "最初の記事", 1, "ドキドキするー");
-INSERT INTO `entry` (`user_id`, `title`, `tag_id`, `text`) VALUES (1, "二番目の記事", 1, "ワクワクするー");
+INSERT INTO `entry` (`title`, `tag`, `entry`) VALUES ( "最初の試練", 1, "ドキドキするー");
+INSERT INTO `entry` (`title`, `tag`, `entry`) VALUES ("二度目の試練", 1, "ワクワクするー");
 COMMIT;
 
 -- タグテーブルの削除と作成をする
@@ -57,6 +57,10 @@ CREATE TABLE `tag` (
 -- データを挿入する
 INSERT INTO `tag` (`name`) VALUES ('無し');
 INSERT INTO `tag` (`name`) VALUES ('PHH');
+INSERT INTO `tag` (`name`) VALUES ('歓喜');
+INSERT INTO `tag` (`name`) VALUES ('憤怒');
+INSERT INTO `tag` (`name`) VALUES ('困惑');
+INSERT INTO `tag` (`name`) VALUES ('感動');
 INSERT INTO `tag` (`name`) VALUES ('プライベート');
 COMMIT;
 
